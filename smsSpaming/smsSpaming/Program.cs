@@ -30,8 +30,8 @@ namespace smsSpaming
                     string numbers = $"{nmbr}";
 
                     string msg = daysLeft == 0 ?
-                        "Dont forget invite Sidr to drink party! Alcoholism encoding finish!!! =)" :
-                        "For end Sidr`s alcoholism encoding left " + daysLeft + " days =(";
+                        "Dont forget invite Sidr to drink party!!! =)" :
+                        "For end Sidr`s encoding left " + daysLeft + " days =(";
                     urlResponse = "https://sms.ru/sms/send?api_id=" + API + "&to=" + numbers + "&msg=" + msg + "&json=1";
                     //отправка HTTP-запроса
                     WebRequest request = WebRequest.Create(urlResponse);
@@ -49,13 +49,13 @@ namespace smsSpaming
                             }
                         }
                         response.Close();
-                        Console.WriteLine("Запрос выполнен.");
+                        Console.WriteLine("Request is completed.");
                         Console.ReadLine();
                     }
                 }
                 catch (WebException exHttp)
                 {
-                    Console.WriteLine("Ошибка HTTP-запроса:");
+                    Console.WriteLine("Error of HTTP-request:");
                     // пишем текст ошибки
                     Console.WriteLine(exHttp.ToString());
                     // получаем статус исключения
@@ -64,13 +64,13 @@ namespace smsSpaming
                     if (status == WebExceptionStatus.ProtocolError)
                     {
                         HttpWebResponse httpResponse = (HttpWebResponse)exHttp.Response;
-                        Console.WriteLine("Статусный код ошибки: {0} - {1}", (int)httpResponse.StatusCode, httpResponse.StatusCode);
+                        Console.WriteLine("Error status code: {0} - {1}", (int)httpResponse.StatusCode, httpResponse.StatusCode);
                     }
                 }
                 catch (Exception e)
                 {
                     // вывод прочих ошибок
-                    Console.WriteLine("Неизвестная ошибка:");
+                    Console.WriteLine("Unknown error:");
                     Console.WriteLine(e.ToString());
                 }
             }
