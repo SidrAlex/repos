@@ -1,0 +1,36 @@
+﻿
+@model IEnumerable<UserRegistrationApp.EFEntity.Models.User>
+@{
+	ViewData["Title"] = "User registration";
+}
+
+	<h3>@ViewData["Title"]</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<td>Login</td>
+				<td>Full name</td>
+				<td>Birth at</td>
+				<td>Email</td>
+				<td>Phone</td>
+				<td>Created</td>
+				<td>Updated</td>
+				<td></td>
+			</tr>
+		</thead>
+		@*TODO: Add paging*@
+		@foreach (var user in Model)
+		{
+			<tr>
+				<td>@user.Login</td>
+				<td>@user.FullName</td>
+				<td>@user.BirthAt</td>
+				<td>@user.Email</td>
+				<td>@user.Phone</td>
+				<td>@user.CreatedAt?.ToShortDateString()</td>
+				<td>@user.UpdatedAt?.ToShortDateString()</td>
+				<td>@Html.ActionLink("Delete", "Delete", "User", new { id = @user.Id }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })</td>
+			</tr>
+		}
+	</table>
+	@Html.ActionLink("Add", "Create", "User", null, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })

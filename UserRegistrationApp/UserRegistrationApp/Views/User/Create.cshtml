@@ -1,0 +1,45 @@
+﻿@model UserRegistrationApp.EFEntity.Models.User
+
+<h3>Adding user</h3>
+<form asp-action="Create" asp-controller="User">
+	<div>
+		<div>
+			<label asp-for="Login"></label><br />
+			<input type="text" asp-for="Login" />
+			<span asp-validation-for="Login"></span>
+		</div>
+		<div>
+			<label asp-for="Password"></label><br />
+			<input asp-for="Password" />
+			<span asp-validation-for="Password"></span>
+		</div>
+		<div>
+			<label asp-for="ConfirmPassword"></label><br />
+			<input asp-for="ConfirmPassword" />
+			<span asp-validation-for="ConfirmPassword"></span>
+		</div>
+		<div>
+			<label asp-for="FullName"></label><br />
+			<input asp-for="FullName" />
+			<span asp-validation-for="FullName"></span>
+		</div>
+		<div>
+			<label asp-for="BirthAt"></label><br />
+			<input type="date" asp-for="BirthAt" />
+			<span asp-validation-for="BirthAt"></span>
+		</div>
+		<div>
+			<label asp-for="Email"></label><br />
+			<input asp-for="Email" />
+			<span asp-validation-for="Email"></span>
+		</div>
+		<div>
+			<label asp-for="Phone"></label><br />
+			<input asp-for="Phone" />
+			<span asp-validation-for="Phone"></span>
+		</div>
+		<div>
+			<input type="submit" value="Save" />
+		</div>
+	</div>
+</form>
