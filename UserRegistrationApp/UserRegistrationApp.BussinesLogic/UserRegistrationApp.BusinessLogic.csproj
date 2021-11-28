@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UserRegistrationApp.EFEntity.DbContext\UserRegistrationApp.EFEntity.DbContext.csproj" />
   </ItemGroup>
 

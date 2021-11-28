@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace UserRegistrationApp.EFEntity.Models
 {
@@ -17,14 +19,17 @@ namespace UserRegistrationApp.EFEntity.Models
         //Password
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Password not specified")]
-        [StringLength(20, MinimumLength = 5, ErrorMessage = "String length must be between 5 and 20 characters")]
+        [StringLength(200, MinimumLength = 5, ErrorMessage = "String length must be between 5 and 200 characters")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         //Password for confirm
         [Display(Name = "ConfirmPassword")]
         [Required(ErrorMessage = "ConfirmPassword not specified")]
-        [StringLength(20, MinimumLength = 5, ErrorMessage = "String length must be between 5 and 20 characters")]
+        [StringLength(200, MinimumLength = 5, ErrorMessage = "String length must be between 5 and 200 characters")]
         [Compare("Password", ErrorMessage = "Password mismatch")]
+        [DataType(DataType.Password)]
+        [NotMapped]
         public string ConfirmPassword { get; set; }
 
         //User`s full name

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Logging;
 using UserRegistrationApp.EFEntity.DbContext.DbContexts;
 using UserRegistrationApp.EFEntity.Models;
@@ -12,6 +14,26 @@ namespace UserRegistrationApp.BusinessLogic.Operations.Implementations
 
         private readonly ILogger<UserService> _logger;
         private readonly UserContext _userContext;
+
+        private static string GetEncryptedPassword(string password)
+        {
+            // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
+            var salt = new byte[128 / 8];
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                rngCsp.GetNonZeroBytes(salt);
+            }
+
+            // derive a 256-bit subkey (use HMACSHA256 with 100,000 iterations)
+            var hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA256,
+                iterationCount: 100000,
+                numBytesRequested: 256 / 8));
+
+            return hashed;
+        }
 
         public UserService(UserContext userContext, ILogger<UserService> logger)
         {
@@ -44,6 +66,7 @@ namespace UserRegistrationApp.BusinessLogic.Operations.Implementations
                 throw GetExceptionAndLog("An error occurred while user creating");
             }
 
+            user.Password = GetEncryptedPassword(user.Password);
             user.CreatedAt = DateTime.Now;
             user.UpdatedAt = DateTime.Now;
             var result = ErrorProcessing(() => _userContext.Add(user));
